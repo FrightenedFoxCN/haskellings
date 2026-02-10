@@ -18,6 +18,7 @@ module Haskellings.Processor (
   executeExercise
 ) where
 
+import           Control.Monad
 import           Control.Monad.Reader
 import           Data.Maybe                 (fromJust, isJust)
 import           System.Exit

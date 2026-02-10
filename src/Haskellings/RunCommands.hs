@@ -22,6 +22,7 @@ module Haskellings.RunCommands (
 ) where
 
 import           Control.Concurrent                (threadDelay)
+import           Control.Monad
 import           Control.Monad.Reader
 import qualified Data.Map                          as M
 import           Data.Yaml                         (encodeFile)

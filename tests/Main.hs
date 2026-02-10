@@ -9,6 +9,7 @@ import           System.IO
 import           Test.Hspec
 import           Test.HUnit
 
+import           Haskellings.Constants
 import           Haskellings.DirectoryUtils
 import           Haskellings.LoadConfig
 import           Haskellings.Processor
@@ -20,7 +21,7 @@ main :: IO ()
 main = do
   loadResult <- loadBaseConfigPaths
   case loadResult of
-    Left _ -> error "Unable to find project root or GHC 8.8.4!"
+    Left _ -> error $ "Unable to find project root or GHC " ++ ghcVersionNumber ++ "!"
     Right paths@(root, _, _) -> do
       createDirectoryIfMissing True (root </> "tests" </> "test_gen")
       hspec $ describe "Basic Compile Tests" $ do

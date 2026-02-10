@@ -15,6 +15,7 @@ module Haskellings.Watcher (
 ) where
 
 import           Control.Concurrent
+import           Control.Monad
 import           Control.Monad.Reader
 import           System.FilePath                   (takeFileName, (</>))
 import           System.FSNotify
@@ -45,8 +46,7 @@ runExerciseWatch (firstEx : restExs) = do
     then runExerciseWatch restExs
     else do
       when (runResult == RunSuccess) $ progPutStrLn "This exercise succeeds! Remove 'I AM NOT DONE' to proceed!"
-      let conf = defaultConfig { confDebounce = Debounce 1 }
-      liftIO $ withManagerConf conf $ \mgr -> do
+      liftIO $ withManager $ \mgr -> do
         signalMVar <- newEmptyMVar
         stopAction <- watchTree mgr (projectRoot config </> exercisesExt config) (shouldCheckFile firstEx)
           (\event -> runReaderT (processEvent firstEx signalMVar event) config)

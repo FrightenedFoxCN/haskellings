@@ -36,12 +36,12 @@ import           System.Environment
 -- | The GHC version currently used by Haskellings. We use this
 --   to locate the appropriate GHC executable.
 ghcVersion :: String
-ghcVersion = "ghc-8.10.4"
+ghcVersion = "ghc-9.6.1"
 
 -- | The version number, isolated from any prefix. Also helps in
 --   finding certain directories.
 ghcVersionNumber :: String
-ghcVersionNumber = "8.10.4"
+ghcVersionNumber = "9.6.1"
 
 -- | The current Haskellings program version.
 haskellingsVersion :: String

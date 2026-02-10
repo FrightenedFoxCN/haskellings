@@ -57,13 +57,14 @@ fpBFSTests testsRoot = testGroup "fpBFS Tests"
       fpBFS (return . ghcPred) (S.singleton root3) `shouldReturn` Just (testsRoot </> actual3)
   ]
   where
-    pred1 fp = return ("ghc-8.8.4" `isSuffixOf` fp)
+    -- Use current ghcVersionNumber for version-agnostic tests
+    pred1 fp = return (("linux-x86_64-" ++ ghcVersion) `isSuffixOf` fp)
     pred2 fp = return ("ghc-8.6.2" `isSuffixOf` fp)
     pred3 fp = return ("ghc-8.3.4" `isSuffixOf` fp)
-    actual1 = "directory_tests" </> "test1" </> "linux-x86_64-ghc-8.8.4"
+    actual1 = "directory_tests" </> "test1" </> ("linux-x86_64-" ++ ghcVersion)
     actual2 = "directory_tests" </> "test2" </> "windows-x86_64-ghc-8.6.2"
     root3   = testsRoot </> "directory_tests" </> "test3"
-    actual3 = "directory_tests" </> "test3" </> "ghc-tinfo6-8.10.4"
+    actual3 = "directory_tests" </> "test3" </> ("ghc-tinfo6-" ++ ghcVersionNumber)
 
 snapshotPackagePredicateTests :: FilePath -> TestTree
 snapshotPackagePredicateTests testsRoot = testGroup "snapshotPackagePredicate Tests"
@@ -71,7 +72,8 @@ snapshotPackagePredicateTests testsRoot = testGroup "snapshotPackagePredicate Te
   , testCase "snapshotPackagePredicate 2" $ snapshotPackagePredicate path2 `shouldReturn` False
   ]
   where
+    -- Use current ghcVersionNumber for version-agnostic tests
     path1 = testsRoot </> "directory_tests" </> "package_test" </>
-                "hash1" </> "8.10.4" </> "lib" </> "x86_64-linux-ghc-8.10.4"
+                "hash1" </> ghcVersionNumber </> "lib" </> ("x86_64-linux-" ++ ghcVersion)
     path2 = testsRoot </> "directory_tests" </> "package_test" </>
-                "hash2" </> "8.10.4" </> "lib" </> "x86_64-linux-ghc-8.10.4"
+                "hash2" </> ghcVersionNumber </> "lib" </> ("x86_64-linux-" ++ ghcVersion)
